@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
 	Form,
 	Button,
@@ -6,8 +6,8 @@ import {
 	Col,
 	InputGroup,
 	FormControl,
-	Modal,
 } from "react-bootstrap";
+import ErrorModal from "./ErrorModal";
 
 function NewUserForm(props) {
 	const [entereduserName, setentereduserName] = useState("");
@@ -29,22 +29,25 @@ function NewUserForm(props) {
 			Age: enteredage,
 		};
 
-		if(entereduserName.trim().length === 0 || enteredage.trim().length === 0){
-            setshowError(true);
-            return;
-        }
+		if (entereduserName.trim().length === 0 || enteredage.trim().length === 0) {
+			setshowError(true);
+			return;
+		}
 
-        if(+submittedData.Age < 1){
-            setshowError(true);
-            return;
-        }
+		if (+submittedData.Age < 1) {
+			setshowError(true);
+			return;
+		}
 
 		props.newSubmission(submittedData);
+
 		setentereduserName("");
 		setenteredage("");
 	};
 
-	const handleClose = () => setshowError(false);
+	const OnCloseHandlerFunction = (data) => {
+		setshowError(false);
+	};
 
 	return (
 		<React.Fragment>
@@ -89,17 +92,10 @@ function NewUserForm(props) {
 					</Col>
 				</Row>
 			</Form>
-			<Modal show={showError} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>Invalid Input!</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>Sorry! Your input in the form is invalid.</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
+			<ErrorModal
+				errorState={showError}
+				onCloseHandler={OnCloseHandlerFunction}
+			/>
 		</React.Fragment>
 	);
 }
