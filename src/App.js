@@ -4,6 +4,7 @@ import "./App.css";
 import UserList from "./components/UserList";
 import NewUserForm from "./components/NewUserForm";
 import { Container } from "react-bootstrap";
+import Footerblock from "./components/FooterBlock";
 
 const FillerData = [
 	{ username: "john_doe", Age: "19" },
@@ -26,6 +27,7 @@ function App() {
 		<Container>
 			<NewUserForm newSubmission={formDataHandler} />
 			<UserList data={UserData} />
+			<Footerblock/>
 		</Container>
 	);
 }
