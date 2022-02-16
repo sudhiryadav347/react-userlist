@@ -47,7 +47,7 @@ function NewUserForm(props) {
 	const handleClose = () => setshowError(false);
 
 	return (
-		<>
+		<React.Fragment>
 			<Form onSubmit={newUserFormSubmitHandler}>
 				<Row className="align-items-center m-4 justify-content-md-center">
 					<Col sm="12" lg="3">
@@ -100,7 +100,7 @@ function NewUserForm(props) {
 					</Button>
 				</Modal.Footer>
 			</Modal>
-		</>
+		</React.Fragment>
 	);
 }
 
