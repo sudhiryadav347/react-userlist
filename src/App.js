@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import UserList from "./components/UserList";
+import NewUserForm from "./components/NewUserForm";
+import { Container } from "react-bootstrap";
+
+const FillerData = [
+	{ username: "john_doe", Age: "19" },
+	{ username: "Jane_doe", Age: "21" },
+	{ username: "davie_jones", Age: "25" },
+	{ username: "sarah_james", Age: "32" },
+	{ username: "vivian_richards", Age: "19" },
+];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [UserData, setUserData] = useState(FillerData);
+
+	const formDataHandler = (data) => {
+		setUserData((prevData) => {
+			return [data, ...prevData];
+		});
+	};
+
+	return (
+		<Container>
+			<NewUserForm newSubmission={formDataHandler} />
+			<UserList data={UserData} />
+		</Container>
+	);
 }
 
 export default App;
