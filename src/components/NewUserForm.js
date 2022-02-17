@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useRef, Fragment, useState } from "react";
 import {
 	Form,
 	Button,
@@ -10,26 +10,21 @@ import {
 import ErrorModal from "./ErrorModal";
 
 function NewUserForm(props) {
-	const [entereduserName, setentereduserName] = useState("");
-	const [enteredage, setenteredage] = useState("");
+	const usernameInputRef = useRef();
+	const ageInputRef = useRef();
 	const [showError, setshowError] = useState(false);
-
-	const usernameChangeHandler = (event) => {
-		setentereduserName(event.target.value);
-	};
-
-	const ageChangeHandler = (event) => {
-		setenteredage(event.target.value);
-	};
 
 	const newUserFormSubmitHandler = (event) => {
 		event.preventDefault();
 		const submittedData = {
-			username: entereduserName,
-			Age: enteredage,
+			username: usernameInputRef.current.value,
+			Age: ageInputRef.current.value,
 		};
 
-		if (entereduserName.trim().length === 0 || enteredage.trim().length === 0) {
+		if (
+			usernameInputRef.current.value.trim().length === 0 ||
+			ageInputRef.current.value.trim().length === 0
+		) {
 			setshowError(true);
 			return;
 		}
@@ -40,9 +35,6 @@ function NewUserForm(props) {
 		}
 
 		props.newSubmission(submittedData);
-
-		setentereduserName("");
-		setenteredage("");
 	};
 
 	const OnCloseHandlerFunction = (data) => {
@@ -63,8 +55,7 @@ function NewUserForm(props) {
 								id="username"
 								placeholder="Username"
 								type="text"
-								onChange={usernameChangeHandler}
-								value={entereduserName}
+								ref={usernameInputRef}
 							/>
 						</InputGroup>
 					</Col>
@@ -80,8 +71,7 @@ function NewUserForm(props) {
 							type="number"
 							min="1"
 							max="105"
-							onChange={ageChangeHandler}
-							value={enteredage}
+							ref={ageInputRef}
 						/>
 					</Col>
 
