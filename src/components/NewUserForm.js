@@ -29,12 +29,13 @@ function NewUserForm(props) {
 			return;
 		}
 
-		if (+submittedData.Age < 1) {
+		if (submittedData.Age < 1) {
 			setshowError(true);
 			return;
 		}
 
 		props.newSubmission(submittedData);
+		
 	};
 
 	const OnCloseHandlerFunction = (data) => {
